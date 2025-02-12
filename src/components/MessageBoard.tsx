@@ -139,7 +139,7 @@ const MessageList = styled.div`
   gap: 20px;
 `
 
-const MessageCard = styled(Card)`
+const MessageCard = styled(motion(Card))`
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -492,11 +492,11 @@ function MessageBoard() {
       if (message.type === 'chat' && message.chat_type) {
         return (
           <span style={{ 
-            background: props => props.theme.buttonBg,
+            background: `${props => props.theme.buttonBg}`,
             padding: '2px 8px',
             borderRadius: '4px',
             fontSize: '12px',
-            color: props => props.theme.textSecondary
+            color: `${props => props.theme.textSecondary}`
           }}>
             {message.chat_type}
           </span>
@@ -582,7 +582,7 @@ function MessageBoard() {
               加载中...
             </div>
           ) : messages
-              .filter(message => activeTab === 'all' || message.type === activeTab)
+              .filter(message => message.type === activeTab)
               .map(renderMessage)}
         </AnimatePresence>
       </MessageList>
