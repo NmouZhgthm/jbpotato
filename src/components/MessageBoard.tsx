@@ -248,6 +248,20 @@ const Select = styled.select`
   }
 `
 
+const ChatTypeTag = styled.span`
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  background: ${props => props.theme.buttonBg};
+  color: ${props => props.theme.textSecondary};
+`
+
+const LoadingText = styled.div`
+  text-align: center;
+  padding: 40px;
+  color: ${props => props.theme.textSecondary};
+`
+
 type TabType = 'message' | 'bug' | 'chat';
 
 const messageVariants = {
@@ -491,15 +505,9 @@ function MessageBoard() {
       }
       if (message.type === 'chat' && message.chat_type) {
         return (
-          <span style={{ 
-            background: `${props => props.theme.buttonBg}`,
-            padding: '2px 8px',
-            borderRadius: '4px',
-            fontSize: '12px',
-            color: `${props => props.theme.textSecondary}`
-          }}>
+          <ChatTypeTag>
             {message.chat_type}
-          </span>
+          </ChatTypeTag>
         )
       }
       return null
@@ -574,13 +582,9 @@ function MessageBoard() {
       <MessageList>
         <AnimatePresence>
           {isLoading ? (
-            <div style={{ 
-              textAlign: 'center', 
-              padding: '40px',
-              color: props => props.theme.textSecondary 
-            }}>
+            <LoadingText>
               加载中...
-            </div>
+            </LoadingText>
           ) : messages
               .filter(message => message.type === activeTab)
               .map(renderMessage)}
